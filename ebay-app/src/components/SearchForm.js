@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import Results from "./Results";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Form, Row, Col, Button } from "react-bootstrap";
+
+import logo from "../images/eBay_logo.png";
+
 const SearchForm = ({ register, handleSubmit, errors }) => {
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState(null);
@@ -72,121 +77,185 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
   };
 
   return (
-    <div className="searchForm">
-      <div className="form">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label htmlFor="keywords">Keywords:</label>
-            <input
-              type="text"
-              name="keywords"
-              ref={register({ required: "Keywords required" })}
-            />
-            {errors.keywords && errors.keywords.message}
-          </div>
-          <div>
-            <label htmlFor="minPrice">From </label>
-            <input
-              type="number"
-              name="minPrice"
-              id="minPrice"
-              min="0"
-              required
-              ref={register}
-            />
-            <label htmlFor="maxPrice">to </label>
-            <input
-              type="number"
-              name="maxPrice"
-              id="maxPrice"
-              min="0"
-              required
-              ref={register}
-            />
-          </div>
-          <div>
-            <label htmlFor="condition">Condition:</label>
-            <input
-              type="checkbox"
-              name="conditionNew"
-              id="conditionNew"
-              ref={register}
-            />
-            <label htmlFor="conditionNew">New</label>
-            <input
-              type="checkbox"
-              name="conditionUsed"
-              id="conditionUsed"
-              ref={register}
-            />
-            <label htmlFor="conditionUsed">Used</label>
-            <input
-              type="checkbox"
-              name="conditionVeryGood"
-              id="conditionVeryGood"
-            />
-            <label htmlFor="conditionVeryGood">Very good</label>
-            <input
-              type="checkbox"
-              name="conditionGood"
-              id="conditionGood"
-              ref={register}
-            />
-            <label htmlFor="conditionGood">Good</label>
-            <input
-              type="checkbox"
-              name="conditionAcceptable"
-              id="conditionAcceptable"
-              ref={register}
-            />
-            <label htmlFor="conditionAcceptable">Acceptable</label>
-          </div>
-          <div>
-            Seller:
-            <input
-              type="checkbox"
-              name="returnAccepted"
-              id="returnAccepted"
-              ref={register}
-            />
-            <label htmlFor="returnAccepted">Return accepted</label>
-          </div>
-          <div>
-            <label htmlFor="shipping">Shipping:</label>
-            <input
-              type="checkbox"
-              name="freeShipping"
-              id="freeShipping"
-              ref={register}
-            />
-            <label htmlFor="freeShipping">Free</label>
-            <input
-              type="checkbox"
-              name="expeditedShipping"
-              id="expeditedShipping"
-              ref={register}
-            />
-            <label htmlFor="expeditedShipping">Expedited</label>
-          </div>
-          <div>
-            <label htmlFor="sortBy">Sort by:</label>
-            <select name="sortBy" id="sortBy" ref={register}>
-              <option value="BestMatch">Best match</option>
-              <option value="CurrentPriceHighest">Price: highest first</option>
-              <option value="PricePlusShippingHighest">
-                Price + Shipping: first
-              </option>
-              <option value="PricePlusShippingLowest">
-                Price + Shipping: lowest first
-              </option>
-            </select>
-          </div>
-          <div>
-            <input type="submit"></input>
-          </div>
-        </form>
-      </div>
+    <div>
+      <div className="searchForm">
+        <div className="logo">
+          <img src={logo} alt="Logo"></img>
+        </div>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Row>
+            <Col xs={2}>
+              <Form.Label htmlFor="keywords">
+                <b>Keywords</b>
+              </Form.Label>
+            </Col>
+            <Col xs={10}>
+              <Form.Control
+                type="text"
+                name="keywords"
+                ref={register({ required: "Keywords required" })}
+                placeholder="Enter keywords"
+              />
+              {errors.keywords && errors.keywords.message}
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={2}>
+              <Form.Label htmlFor="minPrice">
+                <b>Price range </b>
+              </Form.Label>
+            </Col>
+            <Col xs={5}>
+              <Form.Control
+                type="number"
+                name="minPrice"
+                id="minPrice"
+                min="0"
+                required
+                ref={register}
+                placeholder="Min Price"
+              />
+            </Col>
+            <Col xs={5}>
+              <Form.Control
+                type="number"
+                name="maxPrice"
+                id="maxPrice"
+                min="0"
+                required
+                ref={register}
+                placeholder="Max Price"
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={2}>
+              <Form.Label htmlFor="condition">
+                <b>Condition</b>
+              </Form.Label>
+            </Col>
+            <Col>
+              <Form.Check
+                inline
+                label="New"
+                type="checkbox"
+                name="conditionNew"
+                id="conditionNew"
+                ref={register}
+              />
 
+              <Form.Check
+                inline
+                label="Used"
+                type="checkbox"
+                name="conditionUsed"
+                id="conditionUsed"
+                ref={register}
+              />
+
+              <Form.Check
+                inline
+                label="Very good"
+                type="checkbox"
+                name="conditionVeryGood"
+                id="conditionVeryGood"
+              />
+
+              <Form.Check
+                inline
+                label="Good"
+                type="checkbox"
+                name="conditionGood"
+                id="conditionGood"
+                ref={register}
+              />
+
+              <Form.Check
+                inline
+                label="Acceptable"
+                type="checkbox"
+                name="conditionAcceptable"
+                id="conditionAcceptable"
+                ref={register}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={2}>
+              <Form.Label htmlFor="seller">
+                <b>Seller</b>
+              </Form.Label>
+            </Col>
+            <Col>
+              <Form.Check
+                inline
+                label="Return accepted"
+                type="checkbox"
+                name="returnAccepted"
+                id="returnAccepted"
+                ref={register}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={2}>
+              <Form.Label htmlFor="shipping">
+                <b>Shipping</b>
+              </Form.Label>
+            </Col>
+            <Col>
+              <Form.Check
+                inline
+                label="Free"
+                type="checkbox"
+                name="freeShipping"
+                id="freeShipping"
+                ref={register}
+              />
+
+              <Form.Check
+                inline
+                label="Expedited"
+                type="checkbox"
+                name="expeditedShipping"
+                id="expeditedShipping"
+                ref={register}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={2}>
+              <Form.Label htmlFor="sortBy">
+                <b>Sort by</b>
+              </Form.Label>
+            </Col>
+            <Col x={2}>
+              <select name="sortBy" id="sortBy" ref={register}>
+                <option value="BestMatch">Best match</option>
+                <option value="CurrentPriceHighest">
+                  Price: highest first
+                </option>
+                <option value="PricePlusShippingHighest">
+                  Price + Shipping: first
+                </option>
+                <option value="PricePlusShippingLowest">
+                  Price + Shipping: lowest first
+                </option>
+              </select>
+            </Col>
+          </Row>
+          <Row>
+            <div className="align-self-end ml-auto">
+              <Button variant="primary" type="submit">
+                Submit
+              </Button>{" "}
+              <Button variant="secondary" type="reset">
+                Clear
+              </Button>{" "}
+            </div>
+          </Row>
+        </Form>
+      </div>
       <div className="Results">
         {showResults ? <Results results={results} /> : ""}
       </div>
