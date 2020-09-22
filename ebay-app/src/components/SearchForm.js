@@ -99,6 +99,7 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
               <Form.Control
                 type="text"
                 name="keywords"
+                required
                 ref={register({ required: "Keywords required" })}
                 placeholder="Enter keywords"
               />
