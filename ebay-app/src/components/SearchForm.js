@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Results from "./Results";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Row, Col, Button } from "react-bootstrap";
-
 import logo from "../images/eBay_logo.png";
 
 const SearchForm = ({ register, handleSubmit, errors }) => {
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState(null);
+
+  const hideResults = () => {
+    setShowResults(false);
+  };
 
   const onSubmit = async (data) => {
     let keywords = data.keywords;
@@ -250,7 +252,7 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
               <Button variant="primary" type="submit">
                 Submit
               </Button>{" "}
-              <Button variant="secondary" type="reset">
+              <Button variant="secondary" type="reset" onClick={hideResults}>
                 Clear
               </Button>{" "}
             </div>
