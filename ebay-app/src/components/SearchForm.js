@@ -73,6 +73,7 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
     );
 
     setResults(JSON.stringify(res.item));
+    console.log(res.item);
     setShowResults((prev) => !prev);
   };
 

@@ -7,10 +7,10 @@
 .result {
   border: 1px solid rgb(190, 190, 190);
   width: 800px;
-  height: 190px;
+  /*height: 400px;*/
   margin: 10px auto;
   position: relative;
-  background-color: #999;
+  background-color: lightgray;
 }
 
 .image {
@@ -34,7 +34,7 @@
 }
 
 .description {
-  margin: 20px;
+  margin: 30px;
 }
 
 .logo {
