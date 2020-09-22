@@ -3,6 +3,7 @@ import Results from "./Results";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import logo from "../images/eBay_logo.png";
+import { BsSearch, BsSlashCircle } from "react-icons/bs";
 
 const SearchForm = ({ register, handleSubmit, errors }) => {
   const [showResults, setShowResults] = useState(false);
@@ -252,10 +253,10 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
           <Row>
             <div className="align-self-end ml-auto">
               <Button variant="primary" type="submit">
-                Submit
+                <BsSearch /> Search
               </Button>{" "}
               <Button variant="secondary" type="reset" onClick={hideResults}>
-                Clear
+                <BsSlashCircle /> Clear
               </Button>{" "}
             </div>
           </Row>
