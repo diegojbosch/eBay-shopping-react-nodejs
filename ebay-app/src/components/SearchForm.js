@@ -7,6 +7,7 @@ import logo from "../images/eBay_logo.png";
 const SearchForm = ({ register, handleSubmit, errors }) => {
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState(null);
+  const [keywords, setKeywords] = useState(null);
 
   const hideResults = () => {
     setShowResults(false);
@@ -76,7 +77,8 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
 
     setResults(JSON.stringify(res.item));
     console.log(res.item);
-    setShowResults((prev) => !prev);
+    setShowResults(true);
+    setKeywords(keywords);
   };
 
   return (
@@ -260,7 +262,7 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
         </Form>
       </div>
       <div className="Results">
-        {showResults ? <Results results={results} /> : ""}
+        {showResults ? <Results results={results} keywords={keywords} /> : ""}
       </div>
     </div>
   );

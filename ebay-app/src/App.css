@@ -4,10 +4,16 @@
   width: 600px;
 }
 
+.results-title {
+  margin: auto;
+  position: relative;
+  width: 800px;
+  font-weight: bold;
+}
+
 .result {
   border: 1px solid rgb(190, 190, 190);
   width: 800px;
-  /*height: 400px;*/
   margin: 10px auto;
   position: relative;
   background-color: lightgray;

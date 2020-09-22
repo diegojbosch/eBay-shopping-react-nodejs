@@ -6,6 +6,7 @@ const Results = (props) => {
 
   return (
     <div>
+      <div className="results-title">Results for {props.keywords}</div>
       {jsonArray.map((item, index) => {
         return (
           <div className="result" key={index}>
