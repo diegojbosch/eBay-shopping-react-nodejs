@@ -1,5 +1,5 @@
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
 
 const request = require('request');
 const cors = require('cors');
@@ -7,7 +7,7 @@ app.use(cors());
 'use strict';
 
 require('dotenv').config();
-const apiKey = process.env.API_KEY
+const apiKey = process.env.API_KEY;
 
 // Only for testing
 app.get('/', function (req, res) {
@@ -31,44 +31,49 @@ app.get('/api/v1.0/search', function(req, res) {
   
   var ebayAPIURL = 'https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsAdvanced&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=' + apiKey + '&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&paginationInput.entriesPerPage=25';
   
-  var queryParams = '&keywords='+keywords+'&min_price='+minPrice+'&max_price='+maxPrice;
-  
-  if(typeof conditionNew !== 'undefined'){
-	queryParams += '&condition_new=' + conditionNew;
-  }
-
-  if(typeof conditionUsed !== 'undefined'){
-	queryParams += '&condition_used=' + conditionUsed;
-  }
-
-  if(typeof conditionVeryGood !== 'undefined'){
-	queryParams += '&condition_very_good=' + conditionVeryGood;
-  }
-
-  if(typeof conditionGood !== 'undefined'){
-	queryParams += '&condition_good=' + conditionGood;
-  }
-
-  if(typeof conditionAcceptable !== 'undefined'){
-	queryParams += '&condition_acceptable=' + conditionAcceptable;
-  }
-
+  var queryParams = '&keywords='+keywords+'&itemFilter(0).name=MaxPrice&itemFilter(0).value='+maxPrice+'&itemFilter(0).paramName=Currency&itemFilter(0).paramValue=USD&itemFilter(1).name=MinPrice&itemFilter(1).value='+minPrice+'&itemFilter(1).paramName=Currency&itemFilter(1).paramValue=USD';
+	
+  var filterNumber = 2;
+	
   if(typeof returnAccepted !== 'undefined'){
-	queryParams += '&return_accepted=' + returnAccepted;
+	queryParams += '&itemFilter('+ filterNumber +').name=ReturnsAcceptedOnly&itemFilter(' + filterNumber+ ').value=true';
+	filterNumber++;
   }
 
   if(typeof freeShipping !== 'undefined'){
-	queryParams += '&free_shipping=' + freeShipping;
+	queryParams += '&itemFilter('+ filterNumber +').name=FreeShippingOnly&itemFilter(' + filterNumber+ ').value=true';
+	filterNumber++;
   }
 
   if(typeof expeditedShipping !== 'undefined'){
-	queryParams += '&expedited_shipping=' + expeditedShipping;
+	queryParams += '&itemFilter('+ filterNumber +').name=ExpeditedShippingType&itemFilter(' + filterNumber+ ').value=Expedited';
+	filterNumber++;
   }
-
-  if(typeof sortOrder !== 'undefined'){
-	queryParams += '&sort_order=' + sortOrder;
+	
+  var conditionValueNumber = 0;
+  var conditions = {
+	"new": "1000",
+	"used": "3000",
+	"very_good": "4000",
+	"good": "5000",
+	"acceptable": "6000"
   }
   
+  for(var condition in conditions){
+	  if(('condition_' + condition) in req.query){
+		  if(conditionValueNumber == 0){
+			  queryParams += '&itemFilter(' + filterNumber + ').name=Condition';
+		  }
+
+		  queryParams += '&itemFilter(' + filterNumber + ').value(' + conditionValueNumber + ')=' + conditions[condition];
+		  conditionValueNumber++;
+	  }
+  }
+	
+  if(typeof sortOrder !== 'undefined'){
+	queryParams += '&sortOrder=' + sortOrder;
+  }
+
   request(ebayAPIURL + queryParams, function (error, response, body) {
 	console.error('error:', error);
 	console.log('statusCode:', response && response.statusCode);
