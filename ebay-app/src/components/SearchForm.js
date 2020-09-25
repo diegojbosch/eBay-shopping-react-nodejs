@@ -48,7 +48,7 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
       queryParams += "&condition_used=" + conditionUsed;
     }
 
-    if (conditionVeryGood === "undefined") {
+    if (conditionVeryGood === true) {
       queryParams += "&condition_very_good=" + conditionVeryGood;
     }
 
@@ -72,6 +72,7 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
       queryParams += "&expedited_shipping=" + expeditedShipping;
     }
 
+    console.log(url + queryParams);
     const res = await fetch(url + queryParams, { method: "GET" }).then((res) =>
       res.json()
     );
@@ -166,6 +167,7 @@ const SearchForm = ({ register, handleSubmit, errors }) => {
                 type="checkbox"
                 name="conditionVeryGood"
                 id="conditionVeryGood"
+                ref={register}
               />
 
               <Form.Check
