@@ -86,4 +86,4 @@ app.get('/api/v1.0/search', function(req, res) {
   
 })
 
-app.listen(8080, () => console.log('App is listening on port 8080.'))
+module.exports = app.listen(8080, () => console.log('App is listening on port 8080.'))
